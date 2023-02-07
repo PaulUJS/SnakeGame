@@ -2,10 +2,18 @@
 #include <SDL.h>
 #include "Snake.h"
 
+struct Walls
+{
+	float x, y;
+	int w, h;
+};
+
 class GameState
 {
 	public:
 		SDL_Renderer* renderer;
+		Walls wallstb[20];
+		Walls wallslr[20];
 
 		// Methods
 		void loadGame(Snake& head);

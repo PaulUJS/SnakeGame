@@ -2,7 +2,40 @@
 
 void GameState::loadGame(Snake& head)
 {
-
+	// Floor
+	for (int i = 0; i < 10; i++)
+	{
+		wallstb[i].x = i * 64;
+		wallstb[i].y = 470;
+		wallstb[i].w = 64;
+		wallstb[i].h = 10;
+	}
+	// Right Wall
+	for (int i = 0; i < 10; i++)
+	{
+		wallslr[i].x = wallstb[9].x + 54;
+		wallslr[i].y = i * 48;
+		wallslr[i].w = 10;
+		wallslr[i].h = 48;
+	}
+	// Ceiling
+	for (int i = 10; i < 20; i++)
+	{
+		int x = 0;
+		wallstb[i].x = wallstb[i-10].x;
+		wallstb[i].y = 0;
+		wallstb[i].w = 64;
+		wallstb[i].h = 10;
+		x += 1;
+	}
+	// Left Wall
+	for (int i = 10; i < 20; i++)
+	{
+		wallslr[i].x = wallstb[0].x;
+		wallslr[i].y = wallslr[i - 10].y;
+		wallslr[i].w = 10;
+		wallslr[i].h = 48;
+	}
 }
 
 void GameState::renderGame(Snake& head)
@@ -11,7 +44,25 @@ void GameState::renderGame(Snake& head)
 	SDL_SetRenderDrawColor(renderer, 128, 128, 255, 255);
 	// Clear the screen to blue
 	SDL_RenderClear(renderer);
+
+	// Rendering the Floor/Ceiling
+	SDL_SetRenderDrawColor(renderer, 0, 255, 0, 255);
+	for (int i = 0; i < 20; i++)
+	{
+		SDL_Rect rect = {wallstb[i].x, wallstb[i].y, wallstb[i].w, wallstb[i].h};
+		SDL_RenderFillRect(renderer, &rect);
+	}
+	// Rendering Walls
+	for (int i = 0; i < 20; i++)
+	{
+		SDL_Rect rect = { wallslr[i].x, wallslr[i].y, wallslr[i].w, wallslr[i].h };
+		SDL_RenderFillRect(renderer, &rect);
+	}
+
+	// Draws head of snake
 	head.drawSnake(renderer);
+
+
 	SDL_RenderPresent(renderer);
 }
 

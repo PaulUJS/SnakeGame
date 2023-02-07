@@ -16,25 +16,25 @@ void Snake::snakeMovement()
 	{
 		dx = 0;
 		dy = 0;
-		dy -= 0.3;
+		dy -= 0.75;
 	}
 	if (state[SDL_SCANCODE_DOWN])
 	{
 		dx = 0;
 		dy = 0;
-		dy += 0.3;
+		dy += 0.75;
 	}
 	if (state[SDL_SCANCODE_LEFT])
 	{
 		dx = 0;
 		dy = 0;
-		dx -= 0.3;
+		dx -= 0.75;
 	}
 	if (state[SDL_SCANCODE_RIGHT])
 	{
 		dx = 0;
 		dy = 0;
-		dx += 0.3;
+		dx += 0.75;
 	}
 }
 
