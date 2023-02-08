@@ -1,6 +1,7 @@
 #pragma once
 #include <SDL.h>
 #include "Snake.h"
+#include "Linkedlist.h"
 
 struct Walls
 {
@@ -17,6 +18,6 @@ class GameState
 
 		// Methods
 		void loadGame(Snake& head);
-		void renderGame(Snake& head);
-		int processEvents(SDL_Window* window, Snake& head);
+		void renderGame(Snake& head, Linkedlist& list);
+		int processEvents(SDL_Window* window, Snake& head, Linkedlist& list);
 };

@@ -38,10 +38,10 @@ void GameState::loadGame(Snake& head)
 	}
 }
 
-void GameState::renderGame(Snake& head)
+void GameState::renderGame(Snake& head, Linkedlist& list)
 {
 	// Set drawing color blue
-	SDL_SetRenderDrawColor(renderer, 128, 128, 255, 255);
+	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
 	// Clear the screen to blue
 	SDL_RenderClear(renderer);
 
@@ -61,12 +61,12 @@ void GameState::renderGame(Snake& head)
 
 	// Draws head of snake
 	head.drawSnake(renderer);
-
+	list.drawNode(renderer);
 
 	SDL_RenderPresent(renderer);
 }
 
-int GameState::processEvents(SDL_Window* window, Snake& head)
+int GameState::processEvents(SDL_Window* window, Snake& head, Linkedlist& list)
 {
 	SDL_Event event;
 	int done = 0;
@@ -103,5 +103,6 @@ int GameState::processEvents(SDL_Window* window, Snake& head)
 		break;
 	}
 	head.snakeMovement();
+	list.processNode(head);
 	return done;
 }
