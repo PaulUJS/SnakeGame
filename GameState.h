@@ -1,7 +1,13 @@
 #pragma once
 #include <SDL.h>
-#include "Snake.h"
+#include <cstdlib>
 #include "Linkedlist.h"
+
+struct Food
+{
+	float x, y;
+	int w, h;
+};
 
 struct Walls
 {
@@ -15,9 +21,12 @@ class GameState
 		SDL_Renderer* renderer;
 		Walls wallstb[20];
 		Walls wallslr[20];
+		Food food;
 
 		// Methods
-		void loadGame(Snake& head);
-		void renderGame(Snake& head, Linkedlist& list);
-		int processEvents(SDL_Window* window, Snake& head, Linkedlist& list);
+		void loadGame();
+		void renderGame(Linkedlist& list);
+		int processEvents(SDL_Window* window, Linkedlist& list);
+		void spawnFood();
+
 };

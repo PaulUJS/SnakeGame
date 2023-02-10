@@ -30,11 +30,14 @@ class Node
 class Linkedlist
 {
 	Node* head;
+	Node* tail;
+
 	public:
 		// Default constructor
 		Linkedlist()
 		{
 			head = nullptr;
+			tail = nullptr;
 		}
 
 		// Function for appending to the list
@@ -47,9 +50,11 @@ class Linkedlist
 		void deleteNode(int);
 
 		// Returns node at given position
-		void processNode(Snake& shead);
+		void processNode();
 
 		void drawNode(SDL_Renderer* renderer);
+
+		void movement();
 };
 
 

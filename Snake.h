@@ -18,8 +18,12 @@ class Snake
 			this->dx = dx;
 			this->dy = dy;
 		}
-	// Methods
-	void drawSnake(SDL_Renderer* renderer);
-	void processMovement();
-	void snakeMovement();
+		void drawSnake(SDL_Renderer* renderer)
+		{
+			SDL_Rect head = { x, y, w, h };
+
+			SDL_SetRenderDrawColor(renderer, 255, 0, 0, 255);
+			SDL_RenderDrawRect(renderer, &head);
+			SDL_RenderFillRect(renderer, &head);
+		}
 };

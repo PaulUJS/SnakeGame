@@ -1,7 +1,8 @@
 #include "GameState.h"
 
-void GameState::loadGame(Snake& head)
+void GameState::loadGame()
 {
+	spawnFood();
 	// Floor
 	for (int i = 0; i < 10; i++)
 	{
@@ -13,7 +14,7 @@ void GameState::loadGame(Snake& head)
 	// Right Wall
 	for (int i = 0; i < 10; i++)
 	{
-		wallslr[i].x = wallstb[9].x + 54;
+		wallstb[i].x = wallstb[9].x + 54;
 		wallslr[i].y = i * 48;
 		wallslr[i].w = 10;
 		wallslr[i].h = 48;
@@ -38,7 +39,7 @@ void GameState::loadGame(Snake& head)
 	}
 }
 
-void GameState::renderGame(Snake& head, Linkedlist& list)
+void GameState::renderGame(Linkedlist& list)
 {
 	// Set drawing color blue
 	SDL_SetRenderDrawColor(renderer, 0, 0, 0, 255);
@@ -59,14 +60,17 @@ void GameState::renderGame(Snake& head, Linkedlist& list)
 		SDL_RenderFillRect(renderer, &rect);
 	}
 
+	
+	SDL_Rect foodRect = { food.x, food.y, food.w, food.h };
+	SDL_RenderFillRect(renderer, &foodRect);
+
 	// Draws head of snake
-	head.drawSnake(renderer);
 	list.drawNode(renderer);
 
 	SDL_RenderPresent(renderer);
 }
 
-int GameState::processEvents(SDL_Window* window, Snake& head, Linkedlist& list)
+int GameState::processEvents(SDL_Window* window, Linkedlist& list)
 {
 	SDL_Event event;
 	int done = 0;
@@ -102,7 +106,22 @@ int GameState::processEvents(SDL_Window* window, Snake& head, Linkedlist& list)
 		}
 		break;
 	}
-	head.snakeMovement();
-	list.processNode(head);
+	list.movement();
+	list.processNode();
 	return done;
+}
+
+void GameState::spawnFood()
+{
+	// Sets the range where the food can spawn
+	int wl = 25, wr = 625;
+	int hl = 25, hr = 455;
+	// Sets the seed for the random num generator
+	srand(time(0));
+	// Generates the random number and sets the x,y value for the food
+	food.x = (rand() % (wr - wl + 1)) + wl;
+	food.y = (rand() % (hr - hl + 1)) + hl;
+	food.w = 10;
+	food.h = 10;
+
 }
